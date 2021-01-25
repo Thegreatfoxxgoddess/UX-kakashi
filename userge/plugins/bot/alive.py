@@ -168,6 +168,18 @@ class Bot_Alive:
             "https://telegra.ph/file/b1b9d233f01815b20a4b8.jpg",
             "https://telegra.ph/file/c22a31d1dc68fe83a4cac.jpg",
             "https://telegra.ph/file/46fbf0c18282d5526519b.jpg"
+            "https://telegra.ph/file/15b4abc1c19326dd2c8b6.jpg",
+            "https://telegra.ph/file/54bb9a10e4ab5d519f27d.jpg",
+            "https://telegra.ph/file/b5e118ed9189c215f2185.jpg",
+            "https://telegra.ph/file/26ba3d1913b6ff694d62c.jpg",
+            "https://telegra.ph/file/76aec2d17cf3b02ae7dbf.jpg",
+            "https://telegra.ph/file/2bc06bce42467a04f6faf.jpg",
+            "https://telegra.ph/file/0914e9b6eaab7eece5e72.jpg",
+            "https://telegra.ph/file/3d74f5abb1a5fb46f7750.jpg",
+            "https://telegra.ph/file/945547062391677495c34.jpg",
+            "https://telegra.ph/file/9e25ffc6a0fb5aed4085d.jpg",
+            "https://telegra.ph/file/dc94e5f99cc6320b2023d.jpg",
+            "https://telegra.ph/file/5528bb4b45241a6a338c1.jpg",
+            "https://telegra.ph/file/6e5646e1dc3d6b284e9df.jpg
         ]
-        return rand_array(alive_imgs)   return rand_array(alive_imgs)
-gs)
+        return rand_array(alive_imgs)
