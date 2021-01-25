@@ -83,7 +83,7 @@ if userge.has_bot:
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^settings_btn$"))
     async def alive_cb(_, callback_query: CallbackQuery):
-        alive_s = f"𝗨𝗣𝗧𝗜𝗠𝗘 :  🕑 {userge.uptime}\n"
+        alive_s = f"𝗨𝗣𝗧𝗜𝗠𝗘 :  {userge.uptime}\n"
         alive_s += "➕ 𝗘𝘅𝘁𝗿𝗮 𝗣𝗹𝘂𝗴𝗶𝗻𝘀 : {}\n".format(
             _parse_arg(Config.LOAD_UNOFFICIAL_PLUGINS)
         )
@@ -129,10 +129,10 @@ class Bot_Alive:
         alive_info = f"""
 <b>[Paimon](tg://openmessage?user_id=1486647366) is Up and Running...
 
-   Python</b> :            🐍  <code>v{versions.__python_version__}</code>
-   <b>Pyrogram</b> :        🔥  <code>v{versions.__pyro_version__}</code>-X-158
-   Bot Version :     🧬  <code>v{get_version()}</code>
-   Maintainer :     🦋 [Alícia Dark](tg://openmessage?user_id=1360435532)
+   Python</b> :          🐍  <code>v{versions.__python_version__}</code>
+   <b>Pyrogram</b> :      🔥  <code>v{versions.__pyro_version__}</code>-X-158
+   Bot Version :   🧬  <code>v{get_version()}</code>
+   Maintainer :   🦋 [Alícia Dark](tg://openmessage?user_id=1360435532)
   
   <b>Bot Mode  :  {Bot_Alive._get_mode()}</b>   |   {userge.uptime}
 """
@@ -141,10 +141,10 @@ class Bot_Alive:
     @staticmethod
     def _get_mode() -> str:
         if RawClient.DUAL_MODE:
-            return "↕️  DUAL"
+            return "DUAL"
         if Config.BOT_TOKEN:
-            return "🤖  BOT"
-        return "👤  USER"
+            return "BOT"
+        return "USER"
 
     @staticmethod
     def alive_buttons():
