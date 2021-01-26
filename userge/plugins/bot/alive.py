@@ -130,7 +130,7 @@ class Bot_Alive:
 <b>[Paimon](tg://openmessage?user_id=1486647366) is Up and Running...
 
    Python</b> :          🐍  <code>v{versions.__python_version__}</code>
-   <b>Pyrogram</b> :      🔥  <code>v{versions.__pyro_version__}-X.158</code>
+   <b>Pyrogram</b> :      🔥  <code>v{versions.__pyro_version__}-X-158</code>
    Bot Version :   🧬  <code>v{get_version()}-rogue.63</code>
    Maintainer :   🦋 [Alícia Dark](tg://openmessage?user_id=1360435532)
   
