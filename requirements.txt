@@ -46,3 +46,4 @@ ujson>=4.0.1
 youtube-search-python==1.3.6
 feedparser>=6.0.2
 PyDictionary
+google_trans_new
