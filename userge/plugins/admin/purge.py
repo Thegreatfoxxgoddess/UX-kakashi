@@ -88,9 +88,9 @@ async def purge_(message: Message):
         "usage": "{tr}purgeme [number]",
         "examples": ["{tr}purgeme 10"],
     },
-    allow_bots=False,
+    allow_bots=true,
     allow_channels=False,
-    allow_via_bot=False,
+    allow_via_bot=true,
 )
 async def purgeme_(message: Message):
     """purge given no. of your messages"""
