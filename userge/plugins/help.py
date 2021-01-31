@@ -409,7 +409,7 @@ if userge.has_bot:
                     )
                 )
         else:
-            cur_clnt = "👤 USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "⚙️ BOT"
+            cur_clnt = "USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "BOT"
             tmp_btns.append(
                 InlineKeyboardButton(
                     f"🔩 Client for Checks and Sudos : {cur_clnt}",
@@ -1215,7 +1215,7 @@ if userge.has_bot:
 
             MAIN_MENU = InlineQueryResultArticle(
                 title="Main Menu",
-                input_message_content=InputTextMessageContent(" 𝗣𝗮𝗶𝗺𝗼𝗻 𝗶𝘀 𝗿𝘂𝗻𝗻𝗶𝗻𝗴...  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨  "),
+                input_message_content=InputTextMessageContent(" `𝗣𝗮𝗶𝗺𝗼𝗻 𝗶𝘀 𝗿𝘂𝗻𝗻𝗶𝗻𝗴...`  `inline MAIN MENU`  "),
                 url="https://github.com/code-rgb/USERGE-X",
                 description="Userge-X Main Menu",
                 thumb_url="https://i.imgur.com/1xsOo9o.png",
