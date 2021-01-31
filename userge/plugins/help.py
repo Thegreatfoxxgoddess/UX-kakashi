@@ -67,10 +67,10 @@ REPO_X = InlineQueryResultArticle(
         [
             [
                 InlineKeyboardButton(
-                    "🔥 USERGE-X Repo", url="https://github.com/code-rgb/USERGE-X"
+                    "USERGE-X Repo", url="https://github.com/code-rgb/USERGE-X"
                 ),
                 InlineKeyboardButton(
-                    "🚀 Deploy USERGE-X",
+                    "Deploy USERGE-X",
                     url=(
                         "https://heroku.com/deploy?template="
                         "https://github.com/code-rgb/USERGE-X/tree/alpha"
@@ -215,7 +215,7 @@ if userge.has_bot:
             await callback_query.answer("you are in main menu", show_alert=True)
             return
         if len(pos_list) == 2:
-            text = " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨"
+            text = " 𝙋𝙖𝙞𝙢𝙤𝙣 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 "
             buttons = main_menu_buttons()
         elif len(pos_list) == 3:
             text, buttons = category_data(cur_pos)
@@ -288,12 +288,12 @@ if userge.has_bot:
 
         await xbot.edit_inline_text(
             callback_query.inline_message_id,
-            text=" 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
+            text=" 𝙋𝙖𝙞𝙢𝙤𝙣 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
             reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
         )
 
         # await callback_query.edit_message_text(
-        #     " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
+        #     " 𝙋𝙖𝙞𝙢𝙤𝙣 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
         #     reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
         # )
 
@@ -504,13 +504,13 @@ if userge.has_bot:
         if flt.is_loaded:
             tmp_btns.append(
                 InlineKeyboardButton(
-                    "❎ Unload", callback_data=f"unload({cur_pos})".encode()
+                    "Unload", callback_data=f"unload({cur_pos})".encode()
                 )
             )
         else:
             tmp_btns.append(
                 InlineKeyboardButton(
-                    "✅ Load", callback_data=f"load({cur_pos})".encode()
+                    "Load", callback_data=f"load({cur_pos})".encode()
                 )
             )
         if flt.is_enabled:
