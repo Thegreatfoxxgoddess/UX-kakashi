@@ -1215,7 +1215,7 @@ if userge.has_bot:
 
             MAIN_MENU = InlineQueryResultArticle(
                 title="Main Menu",
-                input_message_content=InputTextMessageContent(" 𝗣𝗮𝗶𝗺𝗼𝗻 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 "),
+                input_message_content=InputTextMessageContent(" 𝗣𝗮𝗶𝗺𝗼𝗻 𝗶𝘀 𝗿𝘂𝗻𝗻𝗶𝗻𝗴...  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨  "),
                 url="https://github.com/code-rgb/USERGE-X",
                 description="Userge-X Main Menu",
                 thumb_url="https://i.imgur.com/1xsOo9o.png",
