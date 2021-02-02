@@ -27,7 +27,7 @@ async def img_sampler(message: Message):
     if not query:
         return await message.edit(
             "Reply to a message or pass a query to search!", del_in=10
-        )
+        )        
     cat = await message.edit("`Processing...`")
     lim = int(message.flags.get("-l", 3))
     if lim > 10:
