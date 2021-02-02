@@ -90,14 +90,14 @@ if userge.has_bot:
         alive_s += f"👥 𝗦𝘂𝗱𝗼 : {_parse_arg(Config.SUDO_ENABLED)}\n"
         alive_s += f"🚨 𝗔𝗻𝘁𝗶𝘀𝗽𝗮𝗺 : {_parse_arg(Config.ANTISPAM_SENTRY)}\n"
         if Config.HEROKU_APP and Config.RUN_DYNO_SAVER:
-            alive_s += f"⛽️ 𝗗𝘆𝗻𝗼 𝗦𝗮𝘃𝗲𝗿 :  ✅ 𝙴𝚗𝚊𝚋𝚕𝚎𝚍\n"
+            alive_s += f"⛽️ 𝗗𝘆𝗻𝗼 𝗦𝗮𝘃𝗲𝗿 :  𝙴𝚗𝚊𝚋𝚕𝚎𝚍\n"
         alive_s += f"💬 𝗕𝗼𝘁 𝗙𝗼𝗿𝘄𝗮𝗿𝗱𝘀 : {_parse_arg(Config.BOT_FORWARDS)}\n"
         alive_s += f"📝 𝗣𝗠 𝗟𝗼𝗴𝗴𝗲𝗿 : {_parse_arg(Config.PM_LOGGING)}"
         await callback_query.answer(alive_s, show_alert=True)
 
 
 def _parse_arg(arg: bool) -> str:
-    return " ✅ 𝙴𝚗𝚊𝚋𝚕𝚎𝚍" if arg else " ❌ 𝙳𝚒𝚜𝚊𝚋𝚕𝚎𝚍"
+    return "𝙴𝚗𝚊𝚋𝚕𝚎𝚍" if arg else "𝙳𝚒𝚜𝚊𝚋𝚕𝚎𝚍"
 
 
 class Bot_Alive:
@@ -129,11 +129,11 @@ class Bot_Alive:
         alive_info = f"""
 <b>[Paimon](tg://openmessage?user_id=1486647366) is Up and Running...
 
-   Python</b> :          🐍  <code>v{versions.__python_version__}</code>
-   <b>Pyrogram</b> :      🔥  <code>v{versions.__pyro_version__}-X-158</code>
-   Bot Version :   🧬  <code>v{get_version()}-rogue.63</code>
-   Maintainer :   🦋 [Alícia Dark](tg://openmessage?user_id=1360435532)
-   <b>Bot Mode  :  {Bot_Alive._get_mode()}</b>   |   {userge.uptime}
+   🐍Python</b> :            <code>v{versions.__python_version__}</code>
+   🔥<b>Pyrogram</b> :         <code>v{versions.__pyro_version__}-X-158</code>
+   🧬Bot Version :      <code>v{get_version()}-rogue.63</code>
+   🦋Maintainer :    [Alícia Dark](tg://openmessage?user_id=1360435532)
+   ✨<b>Bot Mode  :  {Bot_Alive._get_mode()}</b>   |   {userge.uptime}
 """
         return alive_info
 
