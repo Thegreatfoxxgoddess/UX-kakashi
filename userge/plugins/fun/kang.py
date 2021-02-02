@@ -27,7 +27,10 @@ from userge.utils import get_response
     "kang",
     about={
         "header": "kangs stickers or creates new ones",
-        "flags": {"-s": "without link", "-d": "without trace"},
+        "flags": {
+            "-s": "without link", "-d": "without trace",
+            "-ppl" : "will kang to Alícia's ppl pack",
+        },
         "usage": "Reply {tr}kang [emoji('s)] [pack number] to a sticker or "
         "an image to kang it to your userbot pack.",
         "examples": [
@@ -91,9 +94,13 @@ async def kang_(message: Message):
 
         u_name = user.username
         u_name = "@" + u_name if u_name else user.first_name or user.id
-        packname = f"a{user.id}_by_userge_{pack}"
-        custom_packnick = Config.CUSTOM_PACK_NAME or f"{u_name}'s kang pack"
-        packnick = f"{custom_packnick} Vol.{pack}"
+        if "-ppl" not in message.flags:
+            packname = f"a{user.id}_by_userge_{pack}"
+            custom_packnick = Config.CUSTOM_PACK_NAME or f"{u_name}'s kang pack"
+            packnick = f"{custom_packnick} Vol.{pack}"
+        else:
+            packname = "aliciaspplpack"
+            packnick = "Alícia's ppl pack"
         cmd = "/newpack"
         if resize:
             photo = resize_photo(photo)
