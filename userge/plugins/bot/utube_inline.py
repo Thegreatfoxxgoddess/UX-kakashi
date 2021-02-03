@@ -129,6 +129,7 @@ if userge.has_bot:
             c_q.inline_message_id,
             caption=(
                 f"**⬇️ Downloading {media_type} ...**"
+                f"Progress : {int(percentage)}%\n"
                 f"\n\n🔗  [<b>Link</b>]({yt_url})\n🆔  <b>Format Code</b> : {choice_id or 'bestaudio/best'}"
             ),
         )
