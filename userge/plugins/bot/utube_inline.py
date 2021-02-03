@@ -129,10 +129,29 @@ if userge.has_bot:
             c_q.inline_message_id,
             caption=(
                 f"**⬇️ Downloading {media_type} ...**"
-                f"Progress : {int(percentage)}%\n"
                 f"\n\n🔗  [<b>Link</b>]({yt_url})\n🆔  <b>Format Code</b> : {choice_id or 'bestaudio/best'}"
             ),
         )
+        if current and total:
+                percentage = int(current) * 100 / int(total)
+                out += f"Progress : {int(percentage)}%\n"
+                out += "[{}{}]".format(
+                    "".join(
+                        (
+                            Config.FINISHED_PROGRESS_STR
+                            for _ in range(floor(percentage / 5))
+                        )
+                    ),
+                    "".join(
+                        (
+                            Config.UNFINISHED_PROGRESS_STR
+                            for _ in range(20 - floor(percentage / 5))
+                        )
+                    ),
+                )
+            userge.loop.create_task(message.edit(out))
+
+    await message.edit("Hold on \u23f3 ..")
         if downtype == "v":
             retcode = await _tubeDl(url=yt_url, starttime=startTime, uid=choice_id)
         else:
