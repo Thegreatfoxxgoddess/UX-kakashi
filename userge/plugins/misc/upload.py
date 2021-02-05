@@ -42,7 +42,7 @@ async def rename_(message: Message):
     if not message.filtered_input_str:
         await message.err("new name not found!")
         return
-    await message.edit("`Trying to Rename ...`")
+    await message.edit("`Renaming file ...`")
     if message.reply_to_message and message.reply_to_message.media:
         await _handle_message(message)
     else:
@@ -60,7 +60,7 @@ async def rename_(message: Message):
 )
 async def convert_(message: Message):
     """ convert telegram files """
-    await message.edit("`Trying to Convert ...`")
+    await message.edit("`converting file ...`")
     if message.reply_to_message and message.reply_to_message.media:
         message.text = "" if message.reply_to_message.document else ". -d"
         await _handle_message(message)
