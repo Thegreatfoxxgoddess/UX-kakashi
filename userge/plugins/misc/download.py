@@ -81,6 +81,7 @@ async def url_download(message: Message, url: str) -> Tuple[str, int]:
             "__{}__\n"
             + "```[{}{}]```\n"
             + "**Progress** : `{}%`\n"
+            + "**URL** : `{}`\n"
             + "**FILENAME** : `{}`\n"
             + "**Completed** : `{}`\n"
             + "**Total** : `{}`\n"
@@ -88,7 +89,7 @@ async def url_download(message: Message, url: str) -> Tuple[str, int]:
             + "**ETA** : `{}`"
         )
         progress_str = progress_str.format(
-            "Downloading....",
+            "Downloading...",
             "".join(
                 (
                     Config.FINISHED_PROGRESS_STR
@@ -130,7 +131,7 @@ async def tg_download(message: Message, to_download: Message) -> Tuple[str, int]
         message=to_download,
         file_name=custom_file_name,
         progress=progress,
-        progress_args=(message, "Downloading..."),
+        progress_args=(message, "trying to download"),
     )
     if message.process_is_canceled:
         raise ProcessCanceled
