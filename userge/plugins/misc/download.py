@@ -131,7 +131,7 @@ async def tg_download(message: Message, to_download: Message) -> Tuple[str, int]
         message=to_download,
         file_name=custom_file_name,
         progress=progress,
-        progress_args=(message, "trying to download"),
+        progress_args=(message, "Downloading..."),
     )
     if message.process_is_canceled:
         raise ProcessCanceled
