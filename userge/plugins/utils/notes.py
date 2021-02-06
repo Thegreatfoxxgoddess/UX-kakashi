@@ -41,7 +41,7 @@ def _get_notes_for_chat(chat_id: int) -> str:
     if chat_id in NOTES_DATA:
         for name, pack in NOTES_DATA[chat_id].items():
             mid, is_global = pack
-            out += " `{}` [**{}**] , {}\n".format(
+            out += " 📌 `{}` [**{}**] , {}\n".format(
                 name, "G" if is_global else "L", CHANNEL.get_link(mid)
             )
     return out
@@ -279,7 +279,7 @@ async def add_note(message: Message) -> None:
     replied = message.reply_to_message
     if replied and replied.text:
         content = replied.text.html
-    content = "**Note** : `{}`\n\n{}".format(notename, content or "")
+    content = "**Note** : #{}\n\n{}".format(notename, content or "")
     if not (content or (replied and replied.media)):
         await message.err(text="No Content Found!")
         return
