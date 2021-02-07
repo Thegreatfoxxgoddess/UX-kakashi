@@ -89,7 +89,7 @@ async def url_download(message: Message, url: str) -> Tuple[str, int]:
             + "**ETA** : `{}`"
         )
         progress_str = progress_str.format(
-            "trying to download",
+            "Downloading....",
             "".join(
                 (
                     Config.FINISHED_PROGRESS_STR

@@ -7,14 +7,20 @@ from pyrogram import filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 from userge import Config, Message, userge
+from userge.utils import sublists
 
 HELP_BUTTONS = None
+AUTH_USERS = list(Config.OWNER_ID) + list(Config.SUDO_USERS)
 
 
 COMMANDS = {
     "secret": {
         "help_txt": "**Send a secret message to a user**\n (only the entered user and you can view the message)\n\n>>>  `secret @username [text]`",
         "i_q": "secret @DeletedUser420 This is a secret message",
+    },
+    "troll": {
+        "help_txt": "**Troll to a user**\n (everyone can view the message except the entered user)\n\n>>>  `troll @username [text]`",
+        "i_q": "troll @Lostb053 Lostboy can view this message",
     },
     "alive": {
         "help_txt": "**Alive Command for USERGE-X**\nHere You can view Uptime, Setting and Versions of your bot and when you change settings they are updated in Real-time UwU\n\n>>>  `alive`",
@@ -70,18 +76,11 @@ COMMANDS = {
 if userge.has_bot:
 
     def help_btn_generator():
-        btn = []
-        b = []
-        for cmd in list(COMMANDS.keys()):
-            name = cmd.capitalize()
-            call_back = f"ihelp_{cmd}"
-            b.append(InlineKeyboardButton(name, callback_data=call_back))
-            if len(b) == 3:  # no. of columns
-                btn.append(b)
-                b = []
-        if len(b) != 0:
-            btn.append(b)  # buttons in the last row
-        return btn
+        help_list = [
+            InlineKeyboardButton(cmd.capitalize(), callback_data="ihelp_" + cmd)
+            for cmd in list(COMMANDS.keys())
+        ]
+        return sublists(help_list)
 
     if not HELP_BUTTONS:
         HELP_BUTTONS = help_btn_generator()
@@ -91,7 +90,7 @@ if userge.has_bot:
     inline_help_txt = " <u><b>INLINE COMMANDS</b></u>\n\nHere is a list of all available inline commands.\nChoose a command and for usage see:\n**📕  EXAMPLE**"
 
     @userge.bot.on_message(
-        filters.user(list(Config.OWNER_ID))
+        filters.user(AUTH_USERS)
         & filters.private
         & (filters.command("inline") | filters.regex(pattern=r"^/start inline$"))
     )
@@ -103,7 +102,7 @@ if userge.has_bot:
         )
 
     @userge.bot.on_callback_query(
-        filters.user(list(Config.OWNER_ID)) & filters.regex(pattern=r"^backbtn_ihelp$")
+        filters.user(AUTH_USERS) & filters.regex(pattern=r"^backbtn_ihelp$")
     )
     async def back_btn(_, c_q: CallbackQuery):
         await c_q.answer()
@@ -112,8 +111,7 @@ if userge.has_bot:
         )
 
     @userge.bot.on_callback_query(
-        filters.user(list(Config.OWNER_ID))
-        & filters.regex(pattern=r"^ihelp_([a-zA-Z]+)$")
+        filters.user(AUTH_USERS) & filters.regex(pattern=r"^ihelp_([a-zA-Z]+)$")
     )
     async def help_query(_, c_q: CallbackQuery):
         await c_q.answer()

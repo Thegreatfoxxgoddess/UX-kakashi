@@ -11,7 +11,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9.1
 
       - name: Install Python lint libraries
         run: |
@@ -29,8 +29,8 @@ jobs:
       # commit changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'black autoformat'
-          commit_options: '--no-verify'
+          commit_message: "black autoformat"
+          commit_options: "--no-verify"
           repository: .
           commit_user_name: code-rgb
           commit_user_email: 62891774+code-rgb@users.noreply.github.com

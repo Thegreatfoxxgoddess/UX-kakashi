@@ -100,15 +100,15 @@ async def ytDown(message: Message):
             speed = data.get("speed")
             if not (eta and speed):
                 return
-            out = "**Speed** >> {}/s\n**ETA** >> {}\n".format(
+            out = "**Speed** >> {}/s\n**ETA** : {}\n".format(
                 humanbytes(speed), time_formatter(eta)
             )
-            out += f'**File Name** >> `{data["filename"]}`\n\n'
+            out += f'**File Name** : `{data["filename"]}`\n\n'
             current = data.get("downloaded_bytes")
             total = data.get("total_bytes")
             if current and total:
                 percentage = int(current) * 100 / int(total)
-                out += f"Progress >> {int(percentage)}%\n"
+                out += f"Progress : {int(percentage)}%\n"
                 out += "[{}{}]".format(
                     "".join(
                         (
