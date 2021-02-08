@@ -1,5 +1,5 @@
 # ported from catuserbot to USERGE-X by AshSTR/ashwinstr
-tg://openmessage?user_id=1156425647
+# tg://openmessage?user_id=1156425647
 
 import os
 import shutil
