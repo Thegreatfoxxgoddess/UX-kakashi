@@ -286,16 +286,10 @@ if userge.has_bot:
     @check_owner
     async def callback_mm(callback_query: CallbackQuery):
 
-        await xbot.edit_inline_text(
-            callback_query.inline_message_id,
-            text=" 𝗣𝗮𝗶𝗺𝗼𝗻 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
-            reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
-        )
-
-        # await callback_query.edit_message_text(
-        #     " 𝗣𝗮𝗶𝗺𝗼𝗻 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
-        #     reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
-        # )
+        await callback_query.edit_message_text(
+              " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
+              reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
+          )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^chgclnt$"))
     @check_owner
