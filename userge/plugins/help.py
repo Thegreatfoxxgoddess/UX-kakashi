@@ -24,9 +24,10 @@ from pyrogram.types import (
 from youtubesearchpython import VideosSearch
 
 from userge import Config, Message, get_collection, userge
+from userge.core.ext import RawClient
 from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
-from userge.utils import rand_key, xbot
+from userge.utils import rand_key
 
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
@@ -67,10 +68,10 @@ REPO_X = InlineQueryResultArticle(
         [
             [
                 InlineKeyboardButton(
-                    "USERGE-X Repo", url="https://github.com/code-rgb/USERGE-X"
+                    "🔥 USERGE-X Repo", url="https://github.com/code-rgb/USERGE-X"
                 ),
                 InlineKeyboardButton(
-                    "Deploy USERGE-X",
+                    "🚀 Deploy USERGE-X",
                     url=(
                         "https://heroku.com/deploy?template="
                         "https://github.com/code-rgb/USERGE-X/tree/alpha"
@@ -198,13 +199,9 @@ if userge.has_bot:
             )
         elif len(pos_list) == 3:
             _, buttons = plugin_data(cur_pos, p_num)
-        await xbot.edit_inline_reply_markup(
-            callback_query.inline_message_id,
-            reply_markup=InlineKeyboardMarkup(buttons),
+        await callback_query.edit_message_reply_markup(
+            reply_markup=InlineKeyboardMarkup(buttons)
         )
-        # await callback_query.edit_message_reply_markup(
-        #     reply_markup=InlineKeyboardMarkup(buttons)
-        # )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"back\((.+)\)"))
     @check_owner
@@ -215,22 +212,15 @@ if userge.has_bot:
             await callback_query.answer("you are in main menu", show_alert=True)
             return
         if len(pos_list) == 2:
-            text = " 𝗣𝗮𝗶𝗺𝗼𝗻 𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 "
+            text = " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨"
             buttons = main_menu_buttons()
         elif len(pos_list) == 3:
             text, buttons = category_data(cur_pos)
         elif len(pos_list) == 4:
             text, buttons = plugin_data(cur_pos)
-
-        await xbot.edit_inline_text(
-            callback_query.inline_message_id,
-            text=text,
-            reply_markup=InlineKeyboardMarkup(buttons),
+        await callback_query.edit_message_text(
+            text, reply_markup=InlineKeyboardMarkup(buttons)
         )
-
-        # await callback_query.edit_message_text(
-        #     text, reply_markup=InlineKeyboardMarkup(buttons)
-        # )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"enter\((.+)\)"))
     @check_owner
@@ -243,16 +233,9 @@ if userge.has_bot:
             text, buttons = plugin_data(cur_pos)
         elif len(pos_list) == 4:
             text, buttons = filter_data(cur_pos)
-
-        await xbot.edit_inline_text(
-            callback_query.inline_message_id,
-            text=text,
-            reply_markup=InlineKeyboardMarkup(buttons),
+        await callback_query.edit_message_text(
+            text, reply_markup=InlineKeyboardMarkup(buttons)
         )
-
-        # await callback_query.edit_message_text(
-        #     text, reply_markup=InlineKeyboardMarkup(buttons)
-        # )
 
     @userge.bot.on_callback_query(
         filters.regex(pattern=r"((?:un)?load|(?:en|dis)able)\((.+)\)")
@@ -273,45 +256,37 @@ if userge.has_bot:
             plg = userge.manager.plugins[pos_list[-1]]
             await getattr(plg, task)()
             text, buttons = plugin_data(cur_pos)
-        await xbot.edit_inline_text(
-            callback_query.inline_message_id,
-            text=text,
-            reply_markup=InlineKeyboardMarkup(buttons),
+        await callback_query.edit_message_text(
+            text, reply_markup=InlineKeyboardMarkup(buttons)
         )
-        # await callback_query.edit_message_text(
-        #     text, reply_markup=InlineKeyboardMarkup(buttons)
-        # )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^mm$"))
     @check_owner
     async def callback_mm(callback_query: CallbackQuery):
-
         await callback_query.edit_message_text(
-              " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
-              reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
-          )
+            " 𝐔𝐒𝐄𝐑𝐆𝐄-𝐗  𝗠𝗔𝗜𝗡 𝗠𝗘𝗡𝗨 ",
+            reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
+        )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^chgclnt$"))
     @check_owner
     async def callback_chgclnt(callback_query: CallbackQuery):
+        if not RawClient.DUAL_MODE:
+            return await callback_query.answer(
+                "you using [BOT MODE], can't change client.", show_alert=True
+            )
         if Config.USE_USER_FOR_CLIENT_CHECKS:
             Config.USE_USER_FOR_CLIENT_CHECKS = False
-        else:
+        elif RawClient.DUAL_MODE:
             Config.USE_USER_FOR_CLIENT_CHECKS = True
         await SAVED_SETTINGS.update_one(
             {"_id": "CURRENT_CLIENT"},
             {"$set": {"is_user": Config.USE_USER_FOR_CLIENT_CHECKS}},
             upsert=True,
         )
-
-        await xbot.edit_inline_reply_markup(
-            callback_query.inline_message_id,
-            reply_markup=InlineKeyboardMarkup(main_menu_buttons()),
+        await callback_query.edit_message_reply_markup(
+            reply_markup=InlineKeyboardMarkup(main_menu_buttons())
         )
-
-        # await callback_query.edit_message_reply_markup(
-        #     reply_markup=InlineKeyboardMarkup(main_menu_buttons())
-        # )
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"refresh\((.+)\)"))
     @check_owner
@@ -322,21 +297,9 @@ if userge.has_bot:
             text, buttons = filter_data(cur_pos)
         else:
             text, buttons = plugin_data(cur_pos)
-
-        response = await xbot.edit_inline_text(
-            callback_query.inline_message_id,
-            text=text,
-            reply_markup=InlineKeyboardMarkup(buttons),
+        await callback_query.edit_message_text(
+            text, reply_markup=InlineKeyboardMarkup(buttons)
         )
-        errors = response.get("description", None)
-        if errors:
-            if "not modified:" in errors:
-                raise MessageNotModified
-            if "MESSAGE_ID_INVALID" in errors:
-                raise MessageIdInvalid
-        # await callback_query.edit_message_text(
-        #     text, reply_markup=InlineKeyboardMarkup(buttons)
-        # )
 
     def is_filter(name: str) -> bool:
         split_ = name.split(".")
@@ -393,22 +356,18 @@ if userge.has_bot:
                 )
             )
             if len(cur_pos.split("|")) > 2:
-                tmp_btns.append(
-                    InlineKeyboardButton("🖥 Main Menu", callback_data="mm")
-                    # .encode()
-                )
+                tmp_btns.append(InlineKeyboardButton("🖥 Main Menu", callback_data="mm"))
                 tmp_btns.append(
                     InlineKeyboardButton(
                         "🔄 Refresh", callback_data=f"refresh({cur_pos})".encode()
                     )
                 )
         else:
-            cur_clnt = "USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "BOT"
+            cur_clnt = "👤 USER" if Config.USE_USER_FOR_CLIENT_CHECKS else "⚙️ BOT"
             tmp_btns.append(
                 InlineKeyboardButton(
                     f"🔩 Client for Checks and Sudos : {cur_clnt}",
-                    callback_data="chgclnt"
-                    # .encode()
+                    callback_data="chgclnt",
                 )
             )
         return [tmp_btns]
@@ -498,13 +457,13 @@ if userge.has_bot:
         if flt.is_loaded:
             tmp_btns.append(
                 InlineKeyboardButton(
-                    "Unload", callback_data=f"unload({cur_pos})".encode()
+                    "❎ Unload", callback_data=f"unload({cur_pos})".encode()
                 )
             )
         else:
             tmp_btns.append(
                 InlineKeyboardButton(
-                    "Load", callback_data=f"load({cur_pos})".encode()
+                    "✅ Load", callback_data=f"load({cur_pos})".encode()
                 )
             )
         if flt.is_enabled:
@@ -1220,7 +1179,7 @@ if userge.has_bot:
 
             MAIN_MENU = InlineQueryResultArticle(
                 title="Main Menu",
-                input_message_content=InputTextMessageContent(" `𝗣𝗮𝗶𝗺𝗼𝗻 𝗶𝘀 𝗿𝘂𝗻𝗻𝗶𝗻𝗴...`  `inline MAIN MENU`  "),
+                input_message_content=InputTextMessageContent(" 𝗣𝗮𝗶𝗺𝗼𝗻 𝗶𝘀 𝗿𝘂𝗻𝗻𝗶𝗻𝗴...  inline MAIN MENU "),
                 url="https://github.com/code-rgb/USERGE-X",
                 description="Userge-X Main Menu",
                 thumb_url="https://i.imgur.com/1xsOo9o.png",
