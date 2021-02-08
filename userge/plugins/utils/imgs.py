@@ -1,16 +1,13 @@
-"""
-Download & Upload Images on Telegram\n
-Syntax: `.img <Name>` or `.img (replied message)`
-\n Upgraded and Google Image Error Fixed by @NeoMatrix90 aka @kirito6969
-from oub
-"""
+# ported from catuserbot to USERGE-X by AshSTR/ashwinstr
+# tg://openmessage?user_id=1156425647
+
 import os
 import shutil
 
 from pyrogram.types import InputMediaPhoto
 
 from userge import Message, userge
-from userge.img import googleimagesdownload
+from userge.helpers.google_image_download import googleimagesdownload
 
 
 @userge.on_cmd(
@@ -25,15 +22,16 @@ from userge.img import googleimagesdownload
 async def img_sampler(message: Message):
     query = message.filtered_input_str or message.reply_to_message.text
     if not query:
-        return await message.edit(
-            "Reply to a message or pass a query to search!", del_in=10
-        )        
-    cat = await message.edit("`Processing...`")
-    lim = int(message.flags.get("-l", 3))
-    if lim > 10:
-        lim = int(10)
-    if lim <= 0:
-        lim = int(1)
+        return await message.edit("Reply to a message or pass a query to search!")
+    await message.edit("`Processing...`")
+    flags_ = message.flags
+    if "-l" in flags_:
+        lim = flags_.get("-l", 0)
+        if not str(lim).isdigit():
+            await message.err('"-l" Flag only takes integers', del_in=5)
+            return
+    else:
+        lim = int(3)
     response = googleimagesdownload()
     # creating list of arguments
     arguments = {
@@ -46,8 +44,12 @@ async def img_sampler(message: Message):
     try:
         paths = response.download(arguments)
     except Exception as e:
-        return await cat.edit(f"Error: \n{e}")
-    lst = paths[0][query]
-    await event.client.send_file(event.chat_id, lst, reply_to=reply_to_id)
-    shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
-    await cat.delete()
+        return await message.edit(f"Error: \n`{e}`")
+    img = paths[0][query]
+    media = []
+    for a in img:
+        media.append(InputMediaPhoto(media=a, caption=query))
+    if media:
+        await message.client.send_media_group(message.chat.id, media)
+    shutil.rmtree(os.path.dirname(os.path.abspath(img[0])))
+    await message.delete()
