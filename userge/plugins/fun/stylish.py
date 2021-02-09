@@ -34,7 +34,7 @@ FONT_FLAGS = [
     "-weird",
     "-tiny",
     "-blue",
-    "-lite"
+    "-lite",
 ]
 
 FONTS = {
@@ -110,6 +110,10 @@ async def font_gen(type_choice, input_str):
             "-web",
             "-weeb",
             "-weeeb",
+            "-weird",
+            "-tiny",
+            "-blue",
+            "-lite",
         ],
     },
 )
@@ -120,7 +124,7 @@ async def _style_text(message: Message):
     if not args:
         await message.err("See Help !", del_in=5)
         return
-    await message.edit("🧙‍♂️ `Doing some magik ...`")
+    await message.edit("`Doing some witchery ...`")
     if message.flags:
         flag_choice = list(message.flags.keys())[0]
         input_str = message.filtered_input_str or reply.text
