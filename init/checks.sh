@@ -165,7 +165,7 @@ _checkUnoffPlugins() {
     editLastMessage "Checking USERGE-X [Extra] Plugins ..."
     if test $LOAD_UNOFFICIAL_PLUGINS = true; then
         editLastMessage "\tLoading USERGE-X [Extra] Plugins ..."
-        replyLastMessage "\t\tClonning ..."
+        replyLastMessage "\t\tCloning extra plugins..."
         gitClone --depth=1 https://github.com/Thegreatfoxxgoddess/Userge-Plugins.git
         editLastMessage "\t\tUpgrading PIP ..."
         upgradePip
