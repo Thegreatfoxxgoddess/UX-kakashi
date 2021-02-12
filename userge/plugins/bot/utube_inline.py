@@ -1,13 +1,13 @@
 """ Download Youtube Video/ Audio in a User friendly interface """
-# -------------------------- #
-#   Modded ytdl by code-rgb  #
-# -------------------------- #
+# --------------------------- #
+#   Modded ytdl by code-rgb   #
+# --------------------------- #
 
 import glob
 import os
+import re
 from collections import defaultdict
 from pathlib import Path
-from re import compile
 from time import time
 
 import ujson
@@ -22,7 +22,7 @@ from pyrogram.types import (
     InputMediaVideo,
 )
 from wget import download
-from youtube_dl.utils import DownloadError
+from youtube_dl.utils import DownloadError, ExtractorError
 from youtubesearchpython import VideosSearch
 
 from userge import Config, Message, pool, userge
@@ -41,7 +41,7 @@ from ..misc.upload import upload
 LOGGER = userge.getLogger(__name__)
 CHANNEL = userge.getCLogger(__name__)
 BASE_YT_URL = "https://www.youtube.com/watch?v="
-YOUTUBE_REGEX = compile(
+YOUTUBE_REGEX = re.compile(
     r"(?:(?:https?:)?\/\/)?(?:(?:www|m)\.)?(?:(?:youtube\.com|youtu.be))(?:\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(?:\S+)?"
 )
 PATH = "./userge/xcache/ytsearch.json"
@@ -500,32 +500,37 @@ def yt_search_btns(
 
 @pool.run_in_thread
 def download_button(vid: str, body: bool = False):
-    vid_data = youtube_dl.YoutubeDL({"no-playlist": True}).extract_info(
-        BASE_YT_URL + vid, download=False
-    )
+    try:
+        vid_data = youtube_dl.YoutubeDL({"no-playlist": True}).extract_info(
+            BASE_YT_URL + vid, download=False
+        )
+    except ExtractorError:
+        vid_data = {"formats": []}
     buttons = [
         [
             InlineKeyboardButton(
-                "⭐️ BEST | 📹 mkv", callback_data=f"ytdl_download_{vid}_mkv_v"
+                "⭐️ BEST - 📹 MKV", callback_data=f"ytdl_download_{vid}_mkv_v"
             ),
             InlineKeyboardButton(
-                "⭐️ BEST | 📹 webm/mp4",
+                "⭐️ BEST - 📹 WebM/MP4",
                 callback_data=f"ytdl_download_{vid}_mp4_v",
             ),
         ]
     ]
     # ------------------------------------------------ #
     qual_dict = defaultdict(lambda: defaultdict(int))
-    qual_list = ["144p", "360p", "720p", "1080p", "1440p"]
+    qual_list = ["144p", "240p", "360p", "480p", "720p", "1080p", "1440p"]
     audio_dict = {}
     # ------------------------------------------------ #
     for video in vid_data["formats"]:
+
         fr_note = video.get("format_note")
         fr_id = int(video.get("format_id"))
         fr_size = video.get("filesize")
-        for frmt_ in qual_list:
-            if fr_note in (frmt_, frmt_ + "60"):
-                qual_dict[frmt_][fr_id] = fr_size
+        if video.get("ext") == "mp4":
+            for frmt_ in qual_list:
+                if fr_note in (frmt_, frmt_ + "60"):
+                    qual_dict[frmt_][fr_id] = fr_size
         if video.get("acodec") != "none":
             bitrrate = int(video.get("abr", 0))
             if bitrrate != 0:
@@ -549,7 +554,7 @@ def download_button(vid: str, body: bool = False):
     buttons += [
         [
             InlineKeyboardButton(
-                "⭐️ BEST | 🎵 mp3", callback_data=f"ytdl_download_{vid}_mp3_a"
+                "⭐️ BEST - 🎵 320Kbps - MP3", callback_data=f"ytdl_download_{vid}_mp3_a"
             )
         ]
     ]
