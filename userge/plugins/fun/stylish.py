@@ -31,6 +31,10 @@ FONT_FLAGS = [
     "-web",
     "-weeb",
     "-weeeb",
+    "-weird",
+    "-tiny",
+    "-blue",
+    "-lite",
 ]
 
 FONTS = {
@@ -56,6 +60,11 @@ FONTS = {
     "web": "卂乃匚ᗪ乇千Ꮆ卄丨ﾌҜㄥ爪几ㄖ卩Ɋ尺丂ㄒㄩᐯ山乂ㄚ乙" "卂乃匚ᗪ乇千Ꮆ卄丨ﾌҜㄥ爪几ㄖ卩Ɋ尺丂ㄒㄩᐯ山乂ㄚ乙",
     "weeb": "ﾑ乃ᄃり乇ｷムんﾉﾌズﾚﾶ刀のｱゐ尺丂ｲひ√Ｗﾒﾘ乙" "ﾑ乃ᄃり乇ｷムんﾉﾌズﾚﾶ刀のｱゐ尺丂ｲひ√Ｗﾒﾘ乙",
     "weeeb": "丹日亡句ヨ乍呂廾工勹片し冊几回尸甲尺己卞凵レ山メと乙" "丹日亡句ヨ乍呂廾工勹片し冊几回尸甲尺己卞凵レ山メと乙",
+    "weird": "ΛＢＣＤΞＦＧＨＩＪＫＬＭＮ♢ＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ",
+    "tiny": "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻ",
+    "blue": "🇦​🇧​🇨​🇩​🇪​🇫​🇬​🇭​🇮​🇯​🇰​🇱​🇲​🇳​🇴​🇵​🇶​🇷​🇸​🇹​🇺​🇻​🇼​🇽​🇾​🇿​🇦​🇧​🇨​🇩​🇪​🇫​🇬​🇭​🇮​🇯​🇰​🇱​🇲​🇳​🇴​🇵​🇶​🇷​🇸​🇹​🇺​🇻​🇼​🇽​🇾​🇿​",
+    "lite": "ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ"
+    
 }
 
 NORMAL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -101,6 +110,10 @@ async def font_gen(type_choice, input_str):
             "-web",
             "-weeb",
             "-weeeb",
+            "-weird",
+            "-tiny",
+            "-blue",
+            "-lite",
         ],
     },
 )
@@ -111,7 +124,7 @@ async def _style_text(message: Message):
     if not args:
         await message.err("See Help !", del_in=5)
         return
-    await message.edit("🧙‍♂️ `Doing some magik ...`")
+    await message.edit("`Doing some witchery ...`")
     if message.flags:
         flag_choice = list(message.flags.keys())[0]
         input_str = message.filtered_input_str or reply.text
